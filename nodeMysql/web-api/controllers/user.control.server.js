@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-01-09 15:12:05
- * @LastEditTime : 2020-01-15 13:23:11
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2020-03-18 16:58:48
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \web-api\control\user.control.server.js
  */
@@ -11,6 +11,7 @@ var app = express();
 const uuidv1 = require('uuid/v1');
 const cors = require("cors");
 const crypto = require("crypto"); //node自带的密码加密
+var nodeExcel = require("excel-export");//首先，引入excel模块：
 // const { get } = require("axios").default; //利用axois发送个网络请求
 app.use(cors()); //就这一步就已经解决了跨域
 var connection = require('../mysql');
@@ -157,6 +158,40 @@ module.exports = {
         });
         return;
       }
+    });
+  }),
+  download:app.get('/download', (req,res)=>{
+    var delSql = 'DELETE FROM user where id= ?';
+    connection.query(delSql,[req.body[0]], function (err, result) {
+      if(err){
+        console.log('[DELETE ERROR] - ',err.message);
+        return;
+      }        
+      var conf ={};
+      conf.name = "mysheet";
+      conf.cols = [{
+      caption:'string',
+          type:'string',
+    },{
+      caption:'date',
+      type:'date',
+    },{
+      caption:'bool',
+      type:'bool'
+    },{
+      caption:'number',
+       type:'number'				
+      }];
+      conf.rows = [
+       ['pi', new Date(Date.UTC(2013, 4, 1)), true, 3.14],
+       ["e", new Date(2012, 4, 1), false, 2.7182],
+          ["M&M<>'", new Date(Date.UTC(2013, 6, 9)), false, 1.61803],
+          ["null date", null, true, 1.414]  
+      ];
+      var result = nodeExcel.execute(conf);
+      res.setHeader('Content-Type', 'application/vnd.ms-excel;charset=UTF-8');
+      res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
+      res.end(result, 'binary');
     });
   }),
 }

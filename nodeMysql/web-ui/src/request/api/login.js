@@ -9,6 +9,7 @@
 let login = {
   // ================= 登录模块 WJN start =============
   'login': '/user/login', // 登录
+  'download': '/download', // 下载
   'changePwd': '/config-center/user/password', // 修改密码
   'loginOut': 'users/logout' // 退出
   // ================= 登录模块 WJN end =============

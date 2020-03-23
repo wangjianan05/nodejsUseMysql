@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-01-09 15:13:18
- * @LastEditTime : 2020-01-15 13:19:34
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2020-03-18 16:08:47
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \web-api\route\user.route.server.js
  */
@@ -18,4 +18,6 @@ module.exports = function(app){
   .get(userController.detail);
   app.route('/user/login')
   .post(userController.login);
+  app.route('/download')
+  .get(userController.download);
 }

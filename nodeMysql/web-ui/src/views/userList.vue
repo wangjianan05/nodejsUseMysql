@@ -2,12 +2,13 @@
  * @Description: 主页
  * @Author: your name
  * @Date: 2019-07-16 18:21:04
- * @LastEditTime : 2020-01-15 10:01:01
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2020-03-21 10:05:54
+ * @LastEditors: Please set LastEditors
  -->
 <template>
   <div class="body">
     <el-button type="primary"  @click="addShow()" >新增用户</el-button>
+    <el-button type="primary"  @click="download()" >下载excel</el-button>
     <el-input placeholder="请输入内容" v-model="name" class="header__input--search">
       <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
     </el-input>
@@ -125,10 +126,38 @@ export default {
   },
 
   mounted () {
-
+    var a = {
+      name : `I am object a`,
+      type : 'object'
+    }
+    
+    var b = a;
+    console.log(b);
+    // {name: "I am object a", type: "object"}
+    
+    b.name = `I am object b`;
+    
+    console.log(a);
+    // {name: "I am object b", type: "object"}
+    
+    console.log(b);
+    
+    // {name: "I am object b", type: "object"}
   },
 
   methods: {
+    download(){
+      let _this = this
+      var obj = {
+        url: this.$urlConfig.download
+      }
+      this.$api.getParamsDownload(obj).then(function (res) {
+        let blob = new Blob([res.data], { type: 'application/vnd.ms-excel' })
+        let url = window.URL.createObjectURL(blob)
+        console.log(url)
+        window.location.href = url
+      })
+    },
     handleClose(done) {
       done();
     },

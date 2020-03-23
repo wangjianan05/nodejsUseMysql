@@ -2,8 +2,8 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-16 09:16:45
- * @LastEditTime : 2020-01-14 13:59:12
- * @LastEditors  : Please set LastEditors
+ * @LastEditTime: 2020-03-18 16:45:12
+ * @LastEditors: Please set LastEditors
  */
 /**
  * axios封装
@@ -174,6 +174,21 @@ var request = {
       })
     })
   },
+  postDownload: (obj) => {
+    // let loading = Loading.service(loadingOPtions)
+    return new Promise(function (resolve, reject) {
+      let { url, params = null } = obj
+      return instance.post(url, params, { responseType: 'blob' }).then(res => {
+        if (res) {
+          resolve(res)
+        }
+      }).catch((e) => {
+        console.log(e)
+      }).finally(() => {
+        // loading.close()
+      })
+    })
+  },
   /**
    * @Description: axios的get请求方法 以"/"的方式拼接url
    * @Author: LiSuwan
@@ -221,6 +236,21 @@ var request = {
           } else {
             errorHandle(res.data.code, res.data.message)
           }
+        }
+      }).catch((e) => {
+        console.log(e)
+      }).finally(() => {
+        // loading.close()
+      })
+    })
+  },
+  getParamsDownload: (obj) => {
+    // let loading = Loading.service(loadingOPtions)
+    return new Promise(function (resolve, reject) {
+      let { url, params = '' } = obj
+      return instance.get(url, { params: params,responseType: 'blob' }).then(res => {
+        if (res) {
+          resolve(res)
         }
       }).catch((e) => {
         console.log(e)
