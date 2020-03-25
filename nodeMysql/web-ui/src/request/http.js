@@ -2,7 +2,7 @@
  * @Description: In User Settings Edit
  * @Author: your name
  * @Date: 2019-08-16 09:16:45
- * @LastEditTime: 2020-03-18 16:45:12
+ * @LastEditTime: 2020-03-24 15:13:43
  * @LastEditors: Please set LastEditors
  */
 /**
@@ -89,10 +89,9 @@ instance.interceptors.request.use(
     // 而后我们可以在响应拦截器中，根据状态码进行一些统一的操作。
     // const tokenStore = store.state.token
     // window.sessionStorage.setItem('token', 'edccf8f598aa019a134cba0fd8e64387')
-    const tokenSesstion = window.sessionStorage.getItem('token')
-    tokenSesstion && (config.headers.token = tokenSesstion)
-    // console.log('tokenSesstion', tokenSesstion)
-    // tokenSesstion && (config.headers.token = tokenSesstion) // 首页侧边栏
+    sessionStorage.setItem('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFlYTVlYmJlZGVjNDBjMDg2NDRlN2ZhYmY5OTZlZmYiLCJ0b2tlblR5cGUiOiJ0b2tlbiIsImV4cCI6MTU4NTU1MTA5MSwidXNlcklkIjoiZWRlYzQwYzAtNWViYi0xMWVhLTg2NDQtZTdmYWJmOTk2ZWZmIiwiaWF0IjoxNTg0OTQ2MjkxLCJ1c2VybmFtZSI6ImFkbWluIn0.-vBSRnLtJlD5SWlmiGkQK2NQ6B0pn_qGtOzb5nplKc0')
+    const tokenSesstion = window.sessionStorage.getItem('Authorization')
+    tokenSesstion && (config.headers.Authorization = tokenSesstion)
     return config
   },
   error => Promise.error(error))

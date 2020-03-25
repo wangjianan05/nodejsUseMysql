@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-01-09 15:12:05
- * @LastEditTime: 2020-03-18 16:58:48
+ * @LastEditTime: 2020-03-25 08:58:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \web-api\control\user.control.server.js
@@ -189,8 +189,11 @@ module.exports = {
           ["null date", null, true, 1.414]  
       ];
       var result = nodeExcel.execute(conf);
+      res.header('Access-Control-Expose-Headers', 'Content-Disposition');
       res.setHeader('Content-Type', 'application/vnd.ms-excel;charset=UTF-8');
-      res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
+      res.setHeader('Content-Disposition', 'attachment; filename=aaa.xlsx');
+      // headers.add("Access-Control-Expose-Headers", "Content-Disposition");
+      
       res.end(result, 'binary');
     });
   }),

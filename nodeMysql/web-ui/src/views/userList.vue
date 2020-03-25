@@ -2,7 +2,7 @@
  * @Description: 主页
  * @Author: your name
  * @Date: 2019-07-16 18:21:04
- * @LastEditTime: 2020-03-21 10:05:54
+ * @LastEditTime: 2020-03-25 08:57:26
  * @LastEditors: Please set LastEditors
  -->
 <template>
@@ -150,12 +150,20 @@ export default {
       let _this = this
       var obj = {
         url: this.$urlConfig.download
+        // url:'http://10.133.232.58:10004/iot-power/api/v1.0/consumable/excel?ids=46c75582408994f23f228b0c827b5c2e'
       }
       this.$api.getParamsDownload(obj).then(function (res) {
+        console.log(res)
+        let fileName = res.headers["content-disposition"].split(";")[1].split("filename=")[1];
+        console.log(fileName)
         let blob = new Blob([res.data], { type: 'application/vnd.ms-excel' })
-        let url = window.URL.createObjectURL(blob)
-        console.log(url)
-        window.location.href = url
+        let link = document.createElement('a')
+        link.style.display = 'none'
+        link.href = window.URL.createObjectURL(blob);
+        link.setAttribute('download', fileName)
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
       })
     },
     handleClose(done) {
