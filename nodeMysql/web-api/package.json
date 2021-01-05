@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "excel-export": "^0.5.1",
